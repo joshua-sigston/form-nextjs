@@ -23,21 +23,52 @@ export default function Home() {
                 You want to integrate your product with us? We can help you.
                 Please contact us down below
               </p>
-              <form className="flex flex-col gap-y-4 mt-5">
+              <form
+                action="https://getform.io/f/bdrgoxvb"
+                className="flex flex-col gap-y-4 mt-5"
+                method="POST"
+              >
+                <input type="hidden" name="_gotcha" />
                 <div className="grid space-y-1">
                   <Label>Name</Label>
-                  <Input placeholder="Joh Doe" />
+                  <Input placeholder="Joh Doe" name="name" />
                 </div>
                 <div className="grid space-y-1">
                   <Label>Email</Label>
-                  <Input placeholder="john.doe@example.com" />
+                  <Input placeholder="john.doe@example.com" name="email" />
                 </div>
                 <div className="grid space-y-1">
                   <Label>Question or Problem</Label>
                   <Textarea
                     placeholder="Please share details about your needs..."
                     className="h-32"
+                    name="message"
                   />
+                </div>
+                <Button type="submit">Submit</Button>
+              </form>
+            </TabsContent>
+            <TabsContent value="support">
+              <p className="text-muted-foreground text-sm">
+                Troubleshoot a technical issue or payement problem.
+              </p>
+              <form className="flex flex-col gap-y-4 mt-5">
+                <input type="hidden" name="_gotcha" />
+                <div className="grid space-y-1">
+                  <Label>Name</Label>
+                  <Input placeholder="John Doe" />
+                </div>
+                <div className="grid space-y-1">
+                  <Label>Email</Label>
+                  <Input placeholder="john.doe@example.com" />
+                </div>
+                <div className="grid space-y-1">
+                  <Label>Problem</Label>
+                  <Textarea placeholder="What is wrong...?" className="h-32" />
+                </div>
+                <div className="grid space-y-1">
+                  <Label>Asset</Label>
+                  <Input type="file" />
                 </div>
                 <Button>Submit</Button>
               </form>
