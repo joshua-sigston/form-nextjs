@@ -6,6 +6,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { TabsContent } from "@radix-ui/react-tabs";
 import Image from "next/image";
+import { SalesAction } from "./actions";
+import { SubmitBtn } from "./_components/submit-btn";
 
 export default function Home() {
   return (
@@ -23,11 +25,7 @@ export default function Home() {
                 You want to integrate your product with us? We can help you.
                 Please contact us down below
               </p>
-              <form
-                action="https://getform.io/f/bdrgoxvb"
-                className="flex flex-col gap-y-4 mt-5"
-                method="POST"
-              >
+              <form action={SalesAction} className="flex flex-col gap-y-4 mt-5">
                 <input type="hidden" name="_gotcha" />
                 <div className="grid space-y-1">
                   <Label>Name</Label>
@@ -45,7 +43,7 @@ export default function Home() {
                     name="message"
                   />
                 </div>
-                <Button type="submit">Submit</Button>
+                <SubmitBtn />
               </form>
             </TabsContent>
             <TabsContent value="support">
@@ -70,7 +68,7 @@ export default function Home() {
                   <Label>Asset</Label>
                   <Input type="file" />
                 </div>
-                <Button>Submit</Button>
+                <SubmitBtn />
               </form>
             </TabsContent>
           </CardContent>
