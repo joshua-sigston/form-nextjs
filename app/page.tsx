@@ -1,3 +1,5 @@
+"usel client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,8 +10,25 @@ import { TabsContent } from "@radix-ui/react-tabs";
 import Image from "next/image";
 import { SalesAction } from "./actions";
 import { SubmitBtn } from "./_components/submit-btn";
+import { useFormState } from "react-dom";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
+import { submissionSchema } from "./zod-schema";
 
 export default function Home() {
+  const [salesResult, salesAction] = useFormState(SalesAction, undefined);
+
+  const [salesForm, salesFields] = useForm({
+    lastResult: salesResult,
+
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: submissionSchema });
+    },
+
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
+
   return (
     <section className="min-h-screen w-screen flex flex-col items-center justify-center px-5">
       <h1 className="text-4xl font-bold mb-7">Contact Us</h1>
@@ -25,23 +44,50 @@ export default function Home() {
                 You want to integrate your product with us? We can help you.
                 Please contact us down below
               </p>
-              <form action={SalesAction} className="flex flex-col gap-y-4 mt-5">
+              <form
+                action={salesAction}
+                id={salesForm.id}
+                onSubmit={salesForm.onSubmit}
+                noValidate
+                className="flex flex-col gap-y-4 mt-5"
+              >
                 <input type="hidden" name="_gotcha" />
                 <div className="grid space-y-1">
                   <Label>Name</Label>
-                  <Input placeholder="Joh Doe" name="name" />
+                  <Input
+                    placeholder="Joh Doe"
+                    name={salesFields.name.name}
+                    defaultValue={salesFields.name.initialValue}
+                    key={salesFields.name.key}
+                  />
+                  <p className="text-red-500 text-sm">
+                    {salesFields.name.errors}
+                  </p>
                 </div>
                 <div className="grid space-y-1">
                   <Label>Email</Label>
-                  <Input placeholder="john.doe@example.com" name="email" />
+                  <Input
+                    placeholder="john.doe@example.com"
+                    name={salesFields.email.name}
+                    defaultValue={salesFields.email.initialValue}
+                    key={salesFields.email.key}
+                  />
+                  <p className="text-red-500 text-sm">
+                    {salesFields.email.errors}
+                  </p>
                 </div>
                 <div className="grid space-y-1">
                   <Label>Question or Problem</Label>
                   <Textarea
                     placeholder="Please share details about your needs..."
                     className="h-32"
-                    name="message"
+                    name={salesFields.message.name}
+                    defaultValue={salesFields.message.initialValue}
+                    key={salesFields.message.key}
                   />
+                  <p className="text-red-500 text-sm">
+                    {salesFields.message.errors}
+                  </p>
                 </div>
                 <SubmitBtn />
               </form>
