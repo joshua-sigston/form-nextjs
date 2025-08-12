@@ -124,6 +124,9 @@ export default function Home() {
                     defaultValue={supportFields.name.initialValue}
                     key={supportFields.name.key}
                   />
+                  <p className="text-red-500 text-sm">
+                    {supportFields.name.errors}
+                  </p>
                 </div>
                 <div className="grid space-y-1">
                   <Label>Email</Label>
@@ -133,6 +136,9 @@ export default function Home() {
                     defaultValue={supportFields.email.initialValue}
                     key={supportFields.email.key}
                   />
+                  <p className="text-red-500 text-sm">
+                    {supportFields.email.errors}
+                  </p>
                 </div>
                 <div className="grid space-y-1">
                   <Label>Problem</Label>
@@ -143,6 +149,9 @@ export default function Home() {
                     defaultValue={supportFields.message.initialValue}
                     key={supportFields.message.key}
                   />
+                  <p className="text-red-500 text-sm">
+                    {supportFields.message.errors}
+                  </p>
                 </div>
                 <div className="grid space-y-1">
                   <Label>Asset</Label>
@@ -151,6 +160,9 @@ export default function Home() {
                     name={supportFields.image.name}
                     key={supportFields.image.key}
                   />
+                  <p className="text-red-500 text-sm">
+                    {supportFields.image.errors}
+                  </p>
                 </div>
                 <SubmitBtn />
               </form>
