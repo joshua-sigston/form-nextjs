@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { TabsContent } from "@radix-ui/react-tabs";
 import Image from "next/image";
-import { SalesAction } from "./actions";
+import { SalesAction, SupportAction } from "./actions";
 import { SubmitBtn } from "./_components/submit-btn";
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
@@ -17,9 +17,21 @@ import { submissionSchema } from "./zod-schema";
 
 export default function Home() {
   const [salesResult, salesAction] = useFormState(SalesAction, undefined);
+  const [supportResult, supportAction] = useFormState(SupportAction, undefined);
 
   const [salesForm, salesFields] = useForm({
     lastResult: salesResult,
+
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: submissionSchema });
+    },
+
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
+
+  const [supportForm, supportFields] = useForm({
+    lastResult: supportResult,
 
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: submissionSchema });
@@ -96,23 +108,49 @@ export default function Home() {
               <p className="text-muted-foreground text-sm">
                 Troubleshoot a technical issue or payement problem.
               </p>
-              <form className="flex flex-col gap-y-4 mt-5">
+              <form
+                action={supportAction}
+                id={supportForm.id}
+                onSubmit={supportForm.onSubmit}
+                noValidate
+                className="flex flex-col gap-y-4 mt-5"
+              >
                 <input type="hidden" name="_gotcha" />
                 <div className="grid space-y-1">
                   <Label>Name</Label>
-                  <Input placeholder="John Doe" />
+                  <Input
+                    placeholder="John Doe"
+                    name={supportFields.name.name}
+                    defaultValue={supportFields.name.initialValue}
+                    key={supportFields.name.key}
+                  />
                 </div>
                 <div className="grid space-y-1">
                   <Label>Email</Label>
-                  <Input placeholder="john.doe@example.com" />
+                  <Input
+                    placeholder="john.doe@example.com"
+                    name={supportFields.email.name}
+                    defaultValue={supportFields.email.initialValue}
+                    key={supportFields.email.key}
+                  />
                 </div>
                 <div className="grid space-y-1">
                   <Label>Problem</Label>
-                  <Textarea placeholder="What is wrong...?" className="h-32" />
+                  <Textarea
+                    placeholder="What is wrong...?"
+                    className="h-32"
+                    name={supportFields.message.name}
+                    defaultValue={supportFields.message.initialValue}
+                    key={supportFields.message.key}
+                  />
                 </div>
                 <div className="grid space-y-1">
                   <Label>Asset</Label>
-                  <Input type="file" />
+                  <Input
+                    type="file"
+                    name={supportFields.image.name}
+                    key={supportFields.image.key}
+                  />
                 </div>
                 <SubmitBtn />
               </form>
