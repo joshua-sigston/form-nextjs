@@ -1,4 +1,4 @@
-"usel client";
+"use client";
 
 import React from "react";
 import { useForm } from "@conform-to/react";

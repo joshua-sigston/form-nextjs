@@ -19,7 +19,7 @@ export async function SalesAction(prevState: any, formData: FormData) {
   });
 
   if (!resp.ok) {
-    throw new Error("Something went wrong");
+    return redirect("/error");
   }
 
   return redirect("/success");
@@ -40,7 +40,7 @@ export async function SupportAction(prevState: any, formData: FormData) {
   });
 
   if (!resp.ok) {
-    throw new Error("Something went wrong");
+    return redirect("/error");
   }
 
   return redirect("/success");

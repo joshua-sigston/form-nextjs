@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const Success = () => {
+const Success = () => {
   return (
     <section className="h-screen w-screen flex flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
@@ -23,3 +23,5 @@ export const Success = () => {
     </section>
   );
 };
+
+export default Success;

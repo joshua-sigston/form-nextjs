@@ -1,17 +1,8 @@
 "usel client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { SalesAction, SupportAction } from "./actions";
-import { SubmitBtn } from "./_components/submit-btn";
-import { useFormState } from "react-dom";
-import { useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod";
-import { submissionSchema } from "./zod-schema";
 import SalesForm from "./_components/sales-form";
 import SupportForm from "./_components/support-form";
 
